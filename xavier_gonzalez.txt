@@ -1,0 +1,73 @@
+Xavier Gonzalez
+Session: Lambda Architecture
+April 27th, 2016
+
+Exercice 1
+-------------------------------------------------------------------------------
+Read tweets:
+
+slave1> ./lambda.sh  
+slave1> cd
+slave1> kafka_2.10-0.8.2.0/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic twitter
+slave1> spark-1.6.1/bin/spark-submit labo7.jar -exercise1
+
+...
+
+-------------------------------------------
+Time: 1462865674000 ms
+-------------------------------------------
+(729937652749881344,{"id":729937652749881344,"text":"al concerto dei 5sos sembrerò di nuovo una psicopatica","created":"Tue May 10 093432 CEST 2016"})
+(729937652749873152,{"id":729937652749873152,"text":"RT @spati2012 #CongPurchasedUKhand - Harish Rawat wins trust vote (32-28) - Results to be presented to Supreme Court  All credits to our b\u2026","created":"Tue May 10 093432 CEST 2016"})
+(729937652762316800,{"id":729937652762316800,"text":"smtm???????????????????????????????????????????2????????????????(?)","created":"Tue May 10 093432 CEST 2016"})
+(729937652745682945,{"id":729937652745682945,"text":"RT @soobadooba_boi I must say Im still inconclusive about this honeycomb in my @JawboxGin tho it does give a nice ginger aroma #moregin ht\u2026","created":"Tue May 10 093432 CEST 2016"})
+(729937652766617600,{"id":729937652766617600,"text":"@LawAndTrends ¡Gracias por la mención y por compartir! )","created":"Tue May 10 093432 CEST 2016"})
+(729937652745703425,{"id":729937652745703425,"text":"RT @Car01am RT @Gary_R_Walker Don't hide your book under a bushel. SHOUT about it. Or get me to do it. https//t.co/TGCbBAHeqp  https//t.\u2026","created":"Tue May 10 093432 CEST 2016"})
+(729937652775014400,{"id":729937652775014400,"text":"RT @EEBBuzz ? Aprende A Diferenciar Un Aparato Falso Con Estos Tips ? https//t.co/JixAsRNpSC https//t.co/taof0ccUIS","created":"Tue May 10 093432 CEST 2016"})
+(729937652745646080,{"id":729937652745646080,"text":"RT @RikElfrink \"Man, wat leeft het voetbal hier in Eindhoven.\" Jeffrey Bruma, geen liedje over zichzelf maar een ode aan de boeren https\u2026","created":"Tue May 10 093432 CEST 2016"})
+(729937652749873153,{"id":729937652749873153,"text":"RT @tuetsampa Concurs de CARTELLS per la Festa de l'Escola @epiasabadell . LÍMIT 13 de maig! - https//t.co/3ereGOvOQX","created":"Tue May 10 093432 CEST 2016"})
+(729937652745539584,{"id":729937652745539584,"text":"RT @TTpercent (?'?'c)<?????????wwwwwwwwwwww https//t.co/bndSfB3Zaf","created":"Tue May 10 093432 CEST 2016"})
+...
+
+-------------------------------------------
+Time: 1462865675000 ms
+-------------------------------------------
+(729937656965169152,{"id":729937656965169152,"text":"RT @freshfitness_uk Last few hours! To retweet and follow to enter! Get involved! #gym #free #fitness https//t.co/7phV6b8aUI #giveaway ht\u2026","created":"Tue May 10 093433 CEST 2016"})
+(729937656939941888,{"id":729937656939941888,"text":"@null 1903960945","created":"Tue May 10 093433 CEST 2016"})
+(729937656973557760,{"id":729937656973557760,"text":"RT @sanaatifar #????? ???? ???? ??????? ??? ? ???????? ?? ???? ????? ??? https//t.co/kdh46QsTvp  #Iran https//t.co/PsAXyOnJcS","created":"Tue May 10 093433 CEST 2016"})
+(729937656977739776,{"id":729937656977739776,"text":"RT @lamacope MUCHAS GRACIAS, un día más al 1.329.000 ( 10.0 de share) que ayer de 3 a 3.30 visteis @losmanolostv . Y así durante DIEZ AÑOS\u2026","created":"Tue May 10 093433 CEST 2016"})
+(729937656969351168,{"id":729937656969351168,"text":"RT @CHRISPYEVANS tony \"bitch u kill my ma !\" steve \"fuCK buCKY RUN !\" bucky \"ohhhHHh SHitTt !!! !!!!!! !!!! !! HeLLL NAH IM OUTTA HERE\"","created":"Tue May 10 093433 CEST 2016"})
+(729937656944152576,{"id":729937656944152576,"text":"RT @dibanezazloops C'est bon.\"Anna Taut, Paintings https//t.co/0Jvm2gO3I7","created":"Tue May 10 093433 CEST 2016"})
+(729937656965177345,{"id":729937656965177345,"text":"RT @Bommel1976 dem schließe ich mich an ;-) https//t.co/nQ2oQZnXfY","created":"Tue May 10 093433 CEST 2016"})
+(729937656956735488,{"id":729937656956735488,"text":"RT @dril these people with locked accounts...damn!!! you just know theyre hiding all the good posts in there","created":"Tue May 10 093433 CEST 2016"})
+(729937656960798720,{"id":729937656960798720,"text":"???????????","created":"Tue May 10 093433 CEST 2016"})
+(729937656973537280,{"id":729937656973537280,"text":"??????? ??????? ? ??????? ????","created":"Tue May 10 093433 CEST 2016"})
+...
+
+Exercice 2
+-------------------------------------------------------------------------------
+
+slave1> spark-1.6.1/bin/spark-submit labo7.jar -exercise2
+
+Hastags are saved in Hbase:
+
+hbase(main):001:0> scan 'lambda', {LIMIT=>10}
+ROW                                                          COLUMN+CELL
+ #100\xE5\x84\x84\xE4\xBA\xBA\xE3\x81\xAE\xE4\xBF\xBA\xE3\x8 column=tweets:736209697514999808, timestamp=1464361096521, value=Fri May 27 165724 CEST 2016
+ 1\xAE\xE5\xAB\x81
+ #15DaysTilBeSomebodyFilm                                    column=tweets:736209731077955584, timestamp=1464361103796, value=Fri May 27 165732 CEST 2016
+ #Africa                                                     column=tweets:736209382946537473, timestamp=1464361001886, value=Fri May 27 165609 CEST 2016
+ #Aitzaz                                                     column=tweets:736209739453992960, timestamp=1464361105801, value=Fri May 27 165734 CEST 2016
+ #Akl\xC4\xB1maGelmi\xC5\x9FkenS\xC3\xB6yleyeyim             column=tweets:736209437497696256, timestamp=1464361014674, value=Fri May 27 165622 CEST 2016
+ #AmexLevis                                                  column=tweets:736209559094734848, timestamp=1464361039250, value=Fri May 27 165651 CEST 2016
+ #AmexLevis                                                  column=tweets:736209773042008064, timestamp=1464361112942, value=Fri May 27 165742 CEST 2016
+ #Asia                                                       column=tweets:736209437480755200, timestamp=1464361014622, value=Fri May 27 165622 CEST 2016
+ #AskSimpleFathir                                            column=tweets:736209395533684736, timestamp=1464361004823, value=Fri May 27 165612 CEST 2016
+ #BREAKING                                                   column=tweets:736209454257999873, timestamp=1464361017947, value=Fri May 27 165626 CEST 2016
+ #ContactoConJulioLeon                                       column=tweets:736209605248880641, timestamp=1464361074357, value=Fri May 27 165702 CEST 2016
+ 
+ It can also be seen how recieved tweets get saved under HDFS 'lambda' folder
+ 
+ Exercice 3
+ ------------------------------------------------------------------------------
+ 
+ XXX...... running / not working!
